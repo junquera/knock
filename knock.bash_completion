@@ -1,0 +1,25 @@
+_knock_completions(){
+
+	N_POSITION="${#COMP_WORDS[@]}" 
+	
+	if [ $N_POSITION != "2" ]; then
+	    return
+	fi
+
+	if [ -e ~/.ssh/knock_conf ]; then
+
+	    
+	    # KNOCK_WORDS=$(cat ~/.ssh/knock_conf | grep ^${#COMP_WORDS[$N_POSITION]} | cut -d':' -f1)
+	    
+	    if [ $(echo $KNOCK_WORDS | wc -c) -le 1 ]; then
+	        return
+	    fi
+	   
+	    
+	    COMPREPLY=($(compgen -W $KNOCK_WORDS))
+
+	fi
+
+}
+
+complete -F _knock_completions knock
